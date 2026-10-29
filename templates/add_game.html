@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Game{% endblock %}
+
+{% block main %}
+<h2>Add Game to List</h2>
+<form method="POST" class="form">
+    <label>Title</label>
+    <input name="title" value="{{ title_prefill }}" required>
+    <label>Cover URL</label>
+    <input name="cover" value="{{ cover_prefill }}">
+    <label>Date</label>
+    <input type="date" name="added_date" value="{{ today }}">
+    <label>Notes</label>
+    <textarea name="notes" rows="3"></textarea>
+    <button class="button-primary">Add</button>
+</form>
+{% endblock %}

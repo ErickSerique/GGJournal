@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+
+<div class="home-hero">
+
+    <img src="{{ url_for('static', filename='GG-nobg.png') }}" alt="Logo" class="home-logo">
+
+    <h1 class="home-title">GGJournal</h1>
+
+    <p class="home-subtitle">
+        Track your games. Build your gaming history.<br>
+        Organize everything in personalized lists.
+    </p>
+
+    <div class="home-buttons">
+        {% if session.get("user_id") %}
+            <a href="/lists" class="btn-home primary">My Lists</a>
+            <a href="/search" class="btn-home secondary">Search Games</a>
+        {% else %}
+            <a href="/register" class="btn-home primary">Create Account</a>
+            <a href="/login" class="btn-home secondary">Login</a>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

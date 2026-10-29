@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block main %}
+<h2 class="page-title">Login</h2>
+
+<form action="/login" method="POST" class="form">
+    <label>Username</label>
+    <input type="text" name="username" required>
+
+    <label>Password</label>
+    <input type="password" name="password" required>
+
+    <button class="button-primary">Login</button>
+
+    <p class="form-footer">Don't have an account? <a href="/register">Create one</a></p>
+</form>
+{% endblock %}

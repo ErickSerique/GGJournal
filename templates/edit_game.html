@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Game{% endblock %}
+
+{% block main %}
+<h2>Edit Game</h2>
+
+<form method="POST" class="form">
+
+  <label>Title</label>
+  <input type="text" name="title" value="{{ game.title }}" required>
+
+  <label>Cover URL</label>
+  <input type="text" name="cover" value="{{ game.cover or '' }}">
+
+  <label>Date</label>
+  <input type="date" name="added_date" value="{{ game.release_date }}">
+
+  <label>Notes</label>
+  <textarea name="notes">{{ game.notes or '' }}</textarea>
+
+  <button class="button-primary">Save</button>
+</form>
+{% endblock %}

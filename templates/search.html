@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block main %}
+<h2>Search for a Game</h2>
+
+<form method="POST" class="form">
+  <input type="text" name="query" placeholder="Type a game name..." required>
+  <button class="button-primary">Search</button>
+</form>
+
+{% if results %}
+  <h3>Results</h3>
+
+  <div class="search-grid">
+
+    {% for game in results %}
+        <div class="search-item">
+
+            {% if game.image %}
+                <img src="{{ game.image }}" alt="{{ game.title }}" class="search-cover">
+            {% else %}
+                <div class="search-cover placeholder">No Image</div>
+            {% endif %}
+
+            <h3>{{ game.title }}</h3>
+            <p>Released: {{ game.released or "Unknown" }}</p>
+
+            <form method="GET" class="add-form" onsubmit="return redirectToSelectedList(this)">
+                <label>Add to list</label>
+
+                <select name="list_id" required>
+                    <option value="" disabled selected>Select a list...</option>
+                    {% for lst in lists %}
+                        <option value="{{ lst.id }}">{{ lst.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="hidden" name="title" value="{{ game.title }}">
+                <input type="hidden" name="cover" value="{{ game.image }}">
+
+                <button class="button-primary add">Add</button>
+            </form>
+
+        </div>
+    {% endfor %}
+        <!-- Pagination -->
+        <div style="margin-top:20px;">
+            <form method="POST" style="display:inline;">
+            <input type="hidden" name="query" value="{{ request.form.get('query','') }}">
+            <input type="hidden" name="page" value="{{ page|int - 1 if page|int > 1 else 1 }}">
+            <button class="btn-small" type="submit">« Prev</button>
+            </form>
+
+            <span style="margin:0 12px;">Page {{ page }}</span>
+
+            <form method="POST" style="display:inline;">
+            <input type="hidden" name="query" value="{{ request.form.get('query','') }}">
+            <input type="hidden" name="page" value="{{ page|int + 1 }}">
+            <button class="btn-small" type="submit">Next »</button>
+            </form>
+        </div>
+
+  </div>
+{% endif %}
+
+<!-- Select List -->
+<script>
+function redirectToSelectedList(form) {
+    const listId = form.list_id.value;
+    if (!listId) return false;
+
+    const params = new URLSearchParams(new FormData(form)).toString();
+    window.location = `/list/${listId}/add?${params}`;
+    return false;
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}Create List{% endblock %}
+
+{% block main %}
+<h2>Create New List</h2>
+<form method="POST" class="form">
+  <label>Name</label>
+  <input name="name" required>
+  <label>Description</label>
+  <textarea name="description" rows="3"></textarea>
+  <button class="button-primary">Create</button>
+</form>
+{% endblock %}

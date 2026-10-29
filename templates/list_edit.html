@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit {{ list.name }}{% endblock %}
+
+{% block main %}
+<h2>Edit List</h2>
+
+<form action="/lists/{{ list.id }}/edit" method="POST" class="form">
+    <label>Name</label>
+    <input type="text" name="name" value="{{ list.name }}" required>
+
+    <label>Description</label>
+    <textarea name="description" rows="3">{{ list.description }}</textarea>
+
+    <button class="button-primary">Save Changes</button>
+</form>
+{% endblock %}
